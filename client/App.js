@@ -1,11 +1,9 @@
 import React, { setState, useState, useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import config from './config';
-import Sound from 'react-native-sound'
-
+import SoundPlayer from 'react-native-sound-player'
 
 class App extends React.PureComponent {
-  
 
   _testFetch = async () => {
     try {
@@ -21,20 +19,27 @@ class App extends React.PureComponent {
     
   }
 
-  playTrack = () => {
-    const track = new Sound('https://pl.meln.top/mr/57c28ad74f0c47254c02de055c3135af.mp3?session_key=4d3281cffba5ec4087a8934bca9efbc7', null, (e) => {
-      if (e) {
-        console.log('error loading track:', e)
-      } else {
-        track.play()
-      }
-    })
+  _cardsFetch = async () => {
+    try {
+      let response = await fetch(config.API_ADDR + '/cards');
+      let res = await response.json();
+        
+      this.setState({ 'res': res });
+      console.log(this.state.res);
+      
+    } catch (error) {
+       console.error(error);
+    }
+    
   }
 
-  _testSoundPlay = async () => {
+
+  // Merge doar pe android / ios
+  _testSound =  async () => {
     try {
       // or play from url
-      SoundPlayer.playUrl()
+      SoundPlayer.playUrl('https://freesound.org/data/previews/77/77602_1173265-lq.mp3');
+      console.log(`all good`);
     } catch (e) {
         console.log(`cannot play the sound file`, e)
     }
@@ -43,7 +48,7 @@ class App extends React.PureComponent {
   constructor(props) {
     super(props);
     this._testFetch();
-    this.playTrack();
+    this._cardsFetch();
   }
 
   render() {
