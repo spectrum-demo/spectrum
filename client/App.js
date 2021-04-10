@@ -18,7 +18,16 @@ class App extends React.PureComponent {
 
       if(this._isMounted) {
         this.setState({ 'data': data });
-        console.log(this.state.data);
+
+        for (let i = 0; i < data.pages.length; i++) {
+          const element = data.pages[i];
+          if(element.title == 'Butoane') {
+            
+            this.setState({'buttons': element.entries})
+          }
+          
+        }
+        console.log(this.state.buttons);
       }
       
     } catch (error) {
@@ -40,27 +49,31 @@ class App extends React.PureComponent {
 
   constructor(props) {
     super(props);
-    this._fetchData();
-    this._isMounted = true;
-    this.state = {selectedPage:  ''};
-    this.state = {data:  ''};
   }
 
   renderCaseView = (param) => {
     console.log(param);
     switch (param) {
-      case "categories":
+      case "Cartonașe":
         return <Categories></Categories>;
         break;
-      case "recognition":
+      case "Recunoașterea emoțiilor":
         return <Recognition></Recognition>;
         break;
-      case "medic":
+      case "Asistență":
         return <Medic></Medic>;
         break;
     }
   }
 
+  componentWillMount() {
+    this._isMounted = true;
+    this.setState({"selectedPage":  ''});
+    this.setState({"data":  ''});
+    this.setState({"buttons":  []});
+    
+    this._fetchData();
+  }
   componentWillUnmount() {
     this._isMounted = false;
   }
@@ -74,18 +87,30 @@ class App extends React.PureComponent {
       )
     }
     else {
-      return ( 
+      return (
         <View>
-          <Button title="Categori" onPress={() => this.setState({selectedPage: 'categories'})} />
-          <Button title="Recunosterea emotiilor" onPress={() => this.setState({selectedPage: 'recognition'})} />
-          <Button title="Modul doctor" onPress={() => this.setState({selectedPage: 'medic'})} />
-  
-          <View> 
-           <div> { this.renderCaseView(this.state.selectedPage) } </div> 
+          {
+            [""].map(
+              (s) => {
+                console.log(this.state.selectedPage);
+                if(this.state.selectedPage == undefined || this.state.selectedPage == '') {
+                  return (
+                    this.state.buttons.map((prop) => {
+                      return (
+                        <View> 
+                            <Button title={prop.denumire} key={prop.denumire} onPress={() => this.setState({selectedPage: prop.denumire})}/>
+                        </View>
+                  )}));
+                }
+              }
+            ) 
+          }
+          
+          <View>
+            <div> { this.renderCaseView(this.state.selectedPage) } </div> 
           </View>
         </View>
       );
-
     }
   }
 

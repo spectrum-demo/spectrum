@@ -1,6 +1,6 @@
 
 import config from './config';
-
+// TO DO: store the data, load the data, update... 
 export default class Getter {
 
   dataFetch = async () => {

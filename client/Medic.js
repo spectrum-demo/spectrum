@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 
-import {
-  View,
-} from 'react-native';
+// TODO: Menu medic.
+
 export default class Medic extends Component {
 
   render() {
     return(
             <div>
-                Medic           
+                Medic
             </div>
     )
   }

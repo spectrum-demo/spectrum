@@ -13,7 +13,7 @@ export default class Categories extends Component {
 
       for (let i = 0; i < data.pages.length; i++) {
         const element = data.pages[i];
-        
+                                                                                                                                                                                                     
         if(element.title == "Categorii") {
           console.log(element);
           if(this._isMounted) {
@@ -26,11 +26,10 @@ export default class Categories extends Component {
     } catch (error) {
        console.error(error);
     }
-    
+  
   }
 
   renderCaseView = (param) => {
-    console.log(param);
     switch (param) {
       case "categories":
         return <Categories></Categories>;
@@ -51,7 +50,7 @@ export default class Categories extends Component {
   componentWillMount() {
     this._isMounted = true;
     this.setState({ 'categoriesArr': "" });
-    this.setState({ 'selectedCat': "" });
+    this.setState({ 'selectedCat': "" }); 
     
     this._fetchData();
   }
@@ -80,7 +79,7 @@ export default class Categories extends Component {
           {this.state.categoriesArr.map((prop) => {
               return (
                 <View> 
-                    <Button title={prop.denumire} key={prop.denumire} />
+                    <Button title={prop.denumire} key={prop.denumire} onPress={() => this.setState({"selectedPage":  ''})}/>
                     { this.renderCaseView(this.state.selectedPage) } 
                 </View>
               );
