@@ -1,19 +1,21 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, Button, View, Alert } from 'react-native';
 import Getter from './Getter';
+import { Actions } from 'react-native-router-flux';
 
 export default class Categories extends Component {
   _isMounted = false;
+  
   _fetchData = async () => {
     try {
       
       this._isMounted = true;
       let get = new Getter;
-      let data = await get.dataFetch();
+      let data = await get.getCategs();
 
       for (let i = 0; i < data.pages.length; i++) {
         const element = data.pages[i];
-                                                                                                                                                                                                     
+                                                                                                          
         if(element.title == "Categorii") {
           console.log(element);
           if(this._isMounted) {
@@ -27,20 +29,6 @@ export default class Categories extends Component {
        console.error(error);
     }
   
-  }
-
-  renderCaseView = (param) => {
-    switch (param) {
-      case "categories":
-        return <Categories></Categories>;
-        break;
-      case "recognition":
-        return <Recognition></Recognition>;
-        break;
-      case "medic":
-        return <Medic></Medic>;
-        break;
-    }
   }
 
   constructor(props) {
@@ -60,6 +48,7 @@ export default class Categories extends Component {
   }
 
   render() {
+    let get = new Getter;
     if(this.state.categoriesArr == '') {
       return(
         <View>
@@ -72,15 +61,18 @@ export default class Categories extends Component {
     else {
       return(
         <View>
-          <div>
-              Categories
-          </div>
-
           {this.state.categoriesArr.map((prop) => {
               return (
                 <View> 
-                    <Button title={prop.denumire} key={prop.denumire} onPress={() => this.setState({"selectedPage":  ''})}/>
-                    { this.renderCaseView(this.state.selectedPage) } 
+                    <Button title={prop.denumire} key={prop.denumire} 
+                      onPress=
+                      {
+                        async () => {
+                          let entries = await get.getSubcateg(prop.denumire);
+                          console.log(entries);
+                          Actions.subcategories({'title': prop.denumire, 'entries': entries});
+                        }
+                      }/>
                 </View>
               );
           })}
