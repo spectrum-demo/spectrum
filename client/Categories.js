@@ -13,8 +13,8 @@ export default class Categories extends Component {
       let get = new Getter;
       let data = await get.getCategs();
 
-      for (let i = 0; i < data.pages.length; i++) {
-        const element = data.pages[i];
+      for (let i = 0; i < data.length; i++) {
+        const element = data[i];
                                                                                                           
         if(element.title == "Categorii") {
           console.log(element);
