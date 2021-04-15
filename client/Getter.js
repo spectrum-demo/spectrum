@@ -88,4 +88,13 @@ export default class Getter {
        console.error(error);
     }
   }
+
+  getPhoneNumber = async () => {
+    try {
+      return '+1023456789';
+    }
+    catch (error) {
+      console.error(error);
+    }
+  }
 }
