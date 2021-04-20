@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, Button, View, Alert } from 'react-native';
-import Getter from './Getter';
+import Getter from '../../Utils/Getter';
 import { Actions } from 'react-native-router-flux';
 
 export default class Categories extends Component {

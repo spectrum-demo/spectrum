@@ -24,8 +24,7 @@ class Card extends React.PureComponent {
                 source={{uri: this.props.imgURL}}
             />           
         </View>
-      );
-    
+      ); 
   }
 
   

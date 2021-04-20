@@ -1,9 +1,9 @@
 import React, { setState, useState, useEffect } from 'react';
 import { StyleSheet, Text, Button, View, Alert } from 'react-native';
-import config from './config';
+import config from '../Utils/config';
 import SoundPlayer from 'react-native-sound-player'; 
 import { Actions } from 'react-native-router-flux';
-import Getter from './Getter';
+import Getter from '../Utils/Getter';
 
 class App extends React.PureComponent {
   _isMounted = false;

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Getter from './Getter';
-import config from './config';
+import Getter from '../../Utils/Getter';
+import config from '../../Utils/config';
 import { Actions } from 'react-native-router-flux';
 import { StyleSheet, Text, Button, View, Alert } from 'react-native';
 // TODO: Menu medic.

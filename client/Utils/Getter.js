@@ -20,29 +20,27 @@ export default class Getter {
   getButtons = async () => {
     
     try {
-      let getAllData = await this.getAllData();
-       for (let i = 0; i < getAllData.pages.length; i++) {
-        const element = getAllData.pages[i];
-        if(element.title == "Butoane") {
-          return element;
-        }
-      }
+      console.log("Getter buttons");
+      let response = await fetch(config.API_ADDR + '/data/buttons');
+      console.log("response");
+      let res = await response.json();  
+      console.log(res);
+      
+      return res;
     } catch (error) {
        console.error(error);
     }
   }
 
   getCategs = async () => {
-    let categs = [];
     try {
-      let getAllData = await this.getAllData();
-       for (let i = 0; i < getAllData.pages.length; i++) {
-        const element = getAllData.pages[i];
-        if(element.title != "Întrebări") {
-          categs.push(element);
-        }
-      }
-      return categs;
+      console.log("Getter categories");
+      let response = await fetch(config.API_ADDR + '/data/categories');
+      console.log("response");
+      let res = await response.json();  
+      console.log(res);
+      
+      return res;
     } catch (error) {
        console.error(error);
     }
@@ -74,16 +72,14 @@ export default class Getter {
   }
 
   getQuestions = async () => {
-    
     try {
-      let getAllData = await this.getAllData();
-       for (let i = 0; i < getAllData.pages.length; i++) {
-        const element = getAllData.pages[i];
-        if(element.title == "Întrebări") {
-          console.log(element);
-          return element;
-        }
-      }
+      console.log("Getter questions");
+      let response = await fetch(config.API_ADDR + '/data/questions');
+      console.log("response");
+      let res = await response.json();  
+      console.log(res);
+      
+      return res;
     } catch (error) {
        console.error(error);
     }
@@ -91,10 +87,23 @@ export default class Getter {
 
   getPhoneNumber = async () => {
     try {
-      return '+1023456789';
+      return '0040790376790';
     }
     catch (error) {
       console.error(error);
     }
   }
+
+  getPhoneNumber = async () => {
+    try {
+      const value = await AsyncStorage.getItem('phoneNumber');
+      if (value !== null) {
+        // We have data!!
+        console.log(value);
+        return value;
+      }
+    } catch (error) {
+      // Error retrieving data
+    }
+  };
 }

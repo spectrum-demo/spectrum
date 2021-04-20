@@ -3,14 +3,14 @@
 import React, { Component } from 'react';
 import { Router, Scene } from 'react-native-router-flux';
 
-import Categories from './Categories';
-import Recognition from './Recognition';
-import Medic from './Medic';
-import Getter from './Getter';
-import Menu from './Menu';
-import Card from './Card';
-import Subcategories from './Subcategories';
-import Assistance from './Assistance';
+import Categories from './Menu/Categories/Categories';
+import Recognition from './Menu/Recognition/Recognition';
+import Medic from './Menu/Medic/Medic';
+import Getter from './Utils/Getter';
+import Menu from './Menu/Menu';
+import Card from './Utils/Card';
+import Subcategories from './Menu/Categories/Subcategories';
+import Assistance from './Menu/Medic/Assistance';
 
 const App = () => {
 
