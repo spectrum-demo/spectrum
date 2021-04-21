@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, Button, View, Alert } from 'react-native';
+import { StyleSheet, Text, Button, View, Alert, Image, TouchableOpacity, Dimensions } from 'react-native';
 import Getter from '../../Utils/Getter';
 import { Actions } from 'react-native-router-flux';
+
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 export default class Categories extends Component {
   _isMounted = false;
@@ -60,19 +63,23 @@ export default class Categories extends Component {
     }
     else {
       return(
-        <View>
+        <View style={styles.container}>
           {this.state.categoriesArr.map((prop) => {
               return (
-                <View> 
-                    <Button title={prop.denumire} key={prop.denumire} 
-                      onPress=
-                      {
-                        async () => {
-                          let entries = await get.getSubcateg(prop.denumire);
-                          console.log(entries);
-                          Actions.subcategories({'title': prop.denumire, 'entries': entries});
-                        }
-                      }/>
+                <View style={styles.element}> 
+                  <TouchableOpacity style={styles.button} onPress={
+                      async () => {
+                        let entries = await get.getSubcateg(prop.denumire);
+                        console.log(entries);
+                        Actions.subcategories({'title': prop.denumire, 'entries': entries});
+                      }
+                    }>
+                    <Image
+                      style={{width:100, height: 100}}
+                      source={{uri: prop.imgURL}}
+                    />
+                  </TouchableOpacity>
+                  <Text>{prop.denumire} </Text>
                 </View>
               );
           })}
@@ -83,3 +90,33 @@ export default class Categories extends Component {
     
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    position: 'aboslute',
+    top: '15vh',
+    width: '100vw',
+    display: 'inline-block',
+    flexWrap: 'wrap',
+    flexDirection: 'row',
+    paddingLeft: 0,
+  },
+  element: {
+    flex: 3,
+    width: '50%',
+    marginBottom: '3vh',
+    float: 'left',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  button: {
+    backgroundColor: '#859a9b',
+    borderRadius: 20,
+    padding: 10,
+    marginBottom: 20,
+    shadowColor: '#303838',
+    shadowOffset: { width: 0, height: 5 },
+    shadowRadius: 10,
+    shadowOpacity: 0.35,
+  },
+});

@@ -121,9 +121,26 @@ router.get('/categories', async(req, res) => {
   let categs = [];
   try {
     let getAllData = await getCachedData();
+    let categsElement = {};
     for (let i = 0; i < getAllData.pages.length; i++) {
       const element = getAllData.pages[i];
+      if(element.title == "Categorii") {
+        categsElement = element;
+      }
+    }
+
+    console.log("#####################################");
+    console.log(categsElement);
+    console.log("#####################################");
+
+    for (let i = 0; i < getAllData.pages.length; i++) {
+      let element = getAllData.pages[i];
       if(element.title != "Întrebări") {
+        for (let index = 0; index < categsElement.entries.length; index++) {
+          const element2 =  categsElement.entries[index];
+          element.imgURL = element2.imgURL;
+          element.audioURL = element2.audioURL;
+        }
         categs.push(element);
       }
     }
